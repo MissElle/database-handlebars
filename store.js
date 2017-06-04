@@ -11,10 +11,12 @@ $('#alert-box').on('click', '.cancel-delete', cancelDelete);
 $('#error-box').on('click', '.confirm-error', confirmError);
 
 //-----------------------------------------------------------------------------//
-//These are global variables and initial functions.
+//These are global variables (including the initial compiling) and initial functions.
 
 var BASE_URL = "https://pacific-meadow-64112.herokuapp.com/data-api/";
 var collection = "epope";
+var charTable = $('#charTemplate').html();
+var tableTemplate = Handlebars.compile(charTable);
 
 $('#database-layout').slideDown(170);
 $('#character-form').slideUp(170);
@@ -85,21 +87,24 @@ function generateTable (response){
 		var chPor = response[i].por;
 
 		var id = response[i]._id;
+		
+		var charData = tableTemplate({
+			name : chName,
+			class: chClass,
+			race: chRace,
+			str: chStr,
+			dex: chDex,
+			con: chCon,
+			int: chInt,
+			wis: chWis,
+			cha: chCha,
+			portrait: chPor,
+			ajaxID: id,
+			edit:'<button class="edit-data" id="'+id+'">Edit</button>',
+			delete: '<button class="delete-data" id="'+id+'">Delete</button>'
+		});
 
-		var row = $('<div>').addClass('row data').attr('id', id);
-		var col = $('<div>').addClass('col').text(chName);
-		row.append(col);
-		col = $('<div>').addClass('col').text(chRace);
-		row.append(col);
-		col = $('<div>').addClass('col').text(chClass);
-		row.append(col);
-		col = $('<div>').addClass('col').html('<div class="statnumbers"><p>Str:'+chStr+'</p>'+'<p>Dex:'+chDex+'</p>'+'<p>Con:'+chCon+'</p></div>'+'<div class="statnumbers"><p>Int:'+chInt+'</p>'+'<p>Wis:'+chWis+'</p>'+'<p>Cha:'+chCha+'</p></div>');
-		row.append(col);
-		col = $('<div>').addClass('col').text(chPor);
-		row.append(col);
-		col=$('<div>').addClass('col').html('<button class="edit-data" id="'+id+'">Edit</button><button class="delete-data" id="'+id+'">Delete</button>');
-		row.append(col);
-		chart.append(row);
+		document.getElementById('tableGeneration').innerHTML += charData;
 	}
 }
 
