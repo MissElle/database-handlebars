@@ -23,6 +23,30 @@
 					<div class="col">Portrait</div>
 					<div class="col">Edit</div>
 				</div>
+				<script id="charTable" type="text/x-handlebars-template">
+					<div class="row data" id={{ajaxID}}>
+						<div class="col">{{name}}</div>
+						<div class="col">{{race}}</div>
+						<div class="col">{{class}}</div>
+						<div class="col">
+							<div class="statnumbers">
+								<p>Str:{{str}}</p>
+								<p>Dex:{{dex}}</p>
+								<p>Con:{{con}}</p>
+							</div>
+							<div class="statnumbers">
+								<p>Int:{{int}}</p>
+								<p>Wis:{{wis}}</p>
+								<p>Cha:{{cha}}</p>
+							</div>
+						</div>
+						<div class="col">{{portrait}}</div>
+						<div class="col">
+							{{{edit}}}
+							{{{delete}}}
+						</div>
+					</div>
+				</script>
 			</div>
 			<div class="collapse" id="character-form">
 				<form name="new-data" id="new-data">
